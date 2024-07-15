@@ -9,9 +9,9 @@ const cars = [
 exports.cars = cars;
 
 exports.seed = function(knex) {
-    return knex('dealer').truncate()
+    return knex('cars').truncate()
     .then(function () {
-     return knex('dealer').insert(cars)   
+     return knex('cars').insert(cars)   
     })
     
 }
