@@ -20,8 +20,22 @@ const create = (car) => {
   .then(() => car)
 }
 
+const update = (id, car) => {
+  return db('dealer')
+  .where('id', id)
+  .update(car)
+  .then(() => getById(id))
+}
+const remove = (id) => {
+  return db('dealer')
+  .where({id})
+  .del()
+}
+
 module.exports = {
   getAll,
   getById,
   create,
+  update,
+  remove,
 }

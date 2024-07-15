@@ -24,7 +24,33 @@ router.post('/',
     checkVinNumberUnique, 
     (req,res,next) => {
     cars.create(req.body)
-    .then(newcar => res.status(201).json(newcar))
+    .then(newCar => res.status(201).json(newCar))
+    .catch(err => next(err))
+})
+
+// update a car
+router.put('/:id', 
+    checkCarId,
+    checkCarPayload, 
+     
+    (req,res,next) => {
+        const {id} = req.params
+        const { make, model, mileage, title, transmission} = req.body
+        const updatedinfo = {
+            make:make, 
+            model:model, 
+            mileage:mileage, 
+            title:title, 
+            transmission:transmission}
+    cars.update(id, updatedinfo)
+    .then(updatedCar => res.json(updatedCar))
+    .catch(err => next(err))
+})
+
+// delete a car
+router.delete('/:id', checkCarId, (req,res,next) => {
+    cars.remove(req.params.id)
+    .then( () => res.json(req.car))
     .catch(err => next(err))
 })
 
